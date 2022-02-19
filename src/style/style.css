@@ -26,7 +26,7 @@ html, body {
 
 /* Typography */
 
-.header h1 {
+.header-standard h1 {
   font-size: 3rem;
   letter-spacing: 2px;
   text-transform: lowercase;
@@ -35,42 +35,115 @@ html, body {
 .btn {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 3px;
-  font-size: 1.1rem;
-}
-
-.btn-random {
-  font-size: 1.25rem;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.banner-counter {
-  font-size: 1.5rem;
+  font-size: 0.9rem;
   font-weight: 700;
 }
 
-/* Layout */
+.btn-pro {
+  font-size: 0.75rem;
+}
 
+.btn-random {
+  text-transform: uppercase;
+}
+
+.hex-color {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+.Toastify__toast { 
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .header-standard h1 {
+    font-size: 2.5rem;
+  }
+  
+  .btn {
+    font-size: 0.75rem;
+  }
+
+  .btn-pro {
+    font-size: 0.5rem;
+  }
+
+  .hex-color {
+    font-size: 0.75rem;
+  }
+
+  .Toastify__toast { 
+    font-size: 1.1rem;
+  }
+}
+
+/* ====== LAYOUT =====  */
+
+/* Header */
 .btn {
-  padding: 0.5em 1em;
+  padding: 0.75em 1.5em;
   border-radius: 10px;
+  border: 1px solid --thirdColor;
+  transform: scale(1);
+  transition: all 200ms;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.btn:active {
+  transform: scale(0.9);
 }
 
 .header {
   flex: 1;
+}
+
+.header-standard {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding:1.5rem;
+  align-items: stretch;
+  justify-content: space-between;
+  padding:1em 0 2.5em;
 }
 
-.header h1 {
+.header-standard h1 {
   margin-bottom: 0.75em;
+  text-align: center;
 }
+
+.header-standard .btn-header-container {
+  align-self: center;
+  width: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-random {
+  /* justify-self: center; */
+}
+
+.btn-pro {
+  background-color: var(--primaryColor);
+  color: var(--secondaryColor);
+  transition: all 150ms;
+}
+
+.btn-pro:hover {
+  background-color: var(--secondaryColor);
+  color: var(--primaryColor)
+} 
+
+/* Split and banner */
 
 .split-container {
-  flex: 4;
+  flex: 5;
 }
 
 .split {
@@ -83,23 +156,33 @@ html, body {
   cursor: col-resize;
 }
 
-.btn-plus-minus-container {
+.color-banner {
   display: flex;
-  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+
+}
+.color-banner-details {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-/* .btn-plus, 
-.btn-minus {
-  width: 25px;
-  height: 25px;
-  padding: 0;
+/* Toast */
 
-} */
+.Toastify__toast-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem
+}
 
-.banner-counter {
-  margin: 0 0.5rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 10px;
+.Toastify__toast { /* class inside of Toastify component */
+  border-radius: 20px;
+  border: 1px solid black;
+  text-align: center;
+  color: black;
+  background-color: var(--secondaryColor);
+  width: 80%;
+  /* padding: 0; */
 }

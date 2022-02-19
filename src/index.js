@@ -8,12 +8,7 @@ ReactDOM.render(
 );
 
 /*TODO:
--button cambiare tu random e rendere colore dinamico
--aggiungere tasti per diminuire e ridurre le barre
+--provare a far funzionare il display flex in Split da telefono 
 -aggiugnere form e button per fare una shade da un colore specifico
--scrivere hex color sul colore e tasto per copiare 
--rimuovere casualià shade? (ordine chiaro o scuro) 
--settare le colonne nel localstorage
 
-!! Lo split ha problemi nell'aumento delle colonne a renderizzarle, fare ricerca su docs, in teoria dovrebbe funzionare 
 */
