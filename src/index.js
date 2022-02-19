@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+/*TODO:
+-button cambiare tu random e rendere colore dinamico
+-aggiungere tasti per diminuire e ridurre le barre
+-aggiugnere form e button per fare una shade da un colore specifico
+-scrivere hex color sul colore e tasto per copiare 
+-rimuovere casualià shade? (ordine chiaro o scuro) 
+-settare le colonne nel localstorage
+
+!! Lo split ha problemi nell'aumento delle colonne a renderizzarle, fare ricerca su docs, in teoria dovrebbe funzionare 
+*/

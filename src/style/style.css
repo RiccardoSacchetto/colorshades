@@ -1,0 +1,105 @@
+:root {
+  --primaryColor: black;
+  --secondaryColor: White;
+  --thirdColor: #e4e4e4
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100vw;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.app-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+/* Typography */
+
+.header h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+  text-transform: lowercase;
+}
+
+.btn {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 3px;
+  font-size: 1.1rem;
+}
+
+.btn-random {
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.banner-counter {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Layout */
+
+.btn {
+  padding: 0.5em 1em;
+  border-radius: 10px;
+}
+
+.header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding:1.5rem;
+}
+
+.header h1 {
+  margin-bottom: 0.75em;
+}
+
+.split-container {
+  flex: 4;
+}
+
+.split {
+  display: flex;
+  height: 100%;
+}
+
+.gutter { /* class inside of Split component */
+  background-color: var(--thirdColor);
+  cursor: col-resize;
+}
+
+.btn-plus-minus-container {
+  display: flex;
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .btn-plus, 
+.btn-minus {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+
+} */
+
+.banner-counter {
+  margin: 0 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 10px;
+}
