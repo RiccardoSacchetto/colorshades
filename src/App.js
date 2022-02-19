@@ -5,9 +5,11 @@ import ColorBanner from "./components/ColorBanner";
 import PlusMinusButton from "./components/PlusMinusButton";
 
 function App() {
-  const [numBanners, setNumBanners] = React.useState(8)
+
+  const isMobile = window.innerHeight > window.innerWidth
+  const numBanners = isMobile ? 5 : 7
+
   const [colors, setColors] =React.useState(getShades)
-  const [sizeSplit, setSizeSplit] = React.useState(calcSize)
 
   function getRandomColor() {
     return {
@@ -18,9 +20,7 @@ function App() {
   }
 
   function getShades() {
-    console.log(numBanners)
     const shadesArray = []
-
     const randomColor = getRandomColor()
     const r = randomColor.r
     const g = randomColor.g
@@ -38,28 +38,7 @@ function App() {
       }
       shadesArray.push(color)
     }
-    // console.log(shadesArray)
     return shadesArray
-    
-  }
-
-  function getNewShades() {
-    // console.log(numBanners)
-    const newColors = getShades()
-    // console.log(newColors)
-    setColors(newColors)
-    setSizeSplit(calcSize())
-    console.log(sizeSplit)
-    // console.log(colors)
-  }
-
-  function calcSize() {
-    const a = []
-    const size = 100/numBanners
-    for(let i= 0; i< numBanners; i++) {
-      a.push(size)
-    }
-    return a
   }
 
   const colorBannerElements = colors.map((c,index) =>{
@@ -69,6 +48,8 @@ function App() {
     )
   } )
 
+  const sizeSplit = colors.map(c => 100/numBanners)
+
   return (
     <div className="app-container">
 
@@ -76,25 +57,22 @@ function App() {
         <h1>Color shades</h1>
         <button 
           className="btn btn-random"
-          onClick={getNewShades}>
+          onClick={() => setColors(getShades())}>
             Get some shades
         </button>
-        <PlusMinusButton setNumBanners= {setNumBanners} numBanners={numBanners}/>
       </header>
 
       <div className="split-container">
         <Split
           className="split"
           sizes={sizeSplit}
-          gutterSize={4}
+          gutterSize={6}
           snapOffset={0}
           dragInterval={1}
           direction="horizontal">
-
             {colorBannerElements}
         </Split>
       </div>
-
     </div>
   );
 }
