@@ -100,6 +100,11 @@ html, body {
   transform: scale(0.9);
 }
 
+.btn:focus{
+  outline: none;
+  transform: scale(1);
+}
+
 .header {
   flex: 1;
 }
@@ -125,10 +130,6 @@ html, body {
   align-items: center;
 }
 
-.btn-random {
-  /* justify-self: center; */
-}
-
 .btn-pro {
   background-color: var(--primaryColor);
   color: var(--secondaryColor);
@@ -139,6 +140,21 @@ html, body {
   background-color: var(--secondaryColor);
   color: var(--primaryColor)
 } 
+
+@media (max-width: 600px) {
+  .header-standard .btn-header-container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+  .btn-pro {
+    order: 0;
+    margin-bottom: 1rem;
+  }
+  .btn-random {
+    order: 1
+  }
+}
 
 /* Split and banner */
 
