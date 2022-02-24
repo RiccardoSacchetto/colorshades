@@ -8,7 +8,10 @@ ReactDOM.render(
 );
 
 /*TODO:
+
+--style form and input and submit button > remove default focus i don't know how
+--far funzionare la versione pro
 --provare a far funzionare il display flex in Split da telefono 
--aggiugnere form e button per fare una shade da un colore specifico
+--mandare in testing
 
 */

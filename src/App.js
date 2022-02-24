@@ -110,10 +110,9 @@ function App() {
 
       {proVersion ? 
         <header className="header header-pro">
-          <aside>
           <h1>color shades pro</h1>
           <button 
-            className="btn btn-pro" 
+            className="btn btn-standard" 
             onClick={() => setProVersion(!proVersion)}>
             GO BACK TO STANDARD
           </button>
@@ -123,19 +122,18 @@ function App() {
             onClick={() => setColors(getShades())}>
               Get some random shades
           </button>
-          </aside>
-          <div>
-            <form onSubmit={getShadesFromRGB}>
-              <label htmlFor="rgbInput">Get shades from RGB color</label>
+          <form onSubmit={getShadesFromRGB} class="form-color form-color-rgb">
+            <label>Get shades from RGB color: rgb(
               <input type="text" name="rgbInput" placeholder="255,255,255"/>
-              <button className="btn btn-input" type="submit">get shades</button>
-            </form>
-            <form onSubmit={getShadesFromHEX}>
-              <label htmlFor="hexInput">Get shades from HEX color</label>
-              <input type="text" name="hexInput" placeholder="FF0000"/>
-              <button className="btn btn-input" type="submit">get shades</button>
-            </form>
-          </div>
+            )</label>
+            <button className="btn btn-input" type="submit" style={styleBtn}>get shades</button>
+          </form>
+          <form onSubmit={getShadesFromHEX} class="form-color form-color-hex">
+            <label>Get shades from HEX color: #
+              <input type="text" name="hexInput" placeholder="FF0000"/> 
+            </label>
+            <button className="btn btn-input" type="submit" style={styleBtn}>get shades</button>
+          </form>
         </header> :
 
         <header className="header header-standard">
@@ -144,7 +142,7 @@ function App() {
           <button 
             className="btn btn-random"
             style={styleBtn}
-            onClick={() => setColors(getShades())}>
+            onClick={(e) => setColors(getShades())}>
               Get some random shades
           </button>
           <button 
