@@ -9,7 +9,7 @@ function ColorBanner({backgroundColor, isMobile, setToast}) {
     
     const [hoverDetails,setHoverDetails] = React.useState(false)
     const color = `rgb(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b})`
-    const dark = (backgroundColor.r + backgroundColor.g + backgroundColor.b)/3 > 128
+    const dark = (backgroundColor.r + backgroundColor.g + backgroundColor.b)/3 > 178
 
     //FUNCTIONS
 
@@ -17,12 +17,13 @@ function ColorBanner({backgroundColor, isMobile, setToast}) {
         const r = `${Math.floor(rgb.r/16).toString(16)}${(rgb.r%16).toString(16)}`
         const g = `${Math.floor(rgb.g/16).toString(16)}${(rgb.g%16).toString(16)}`
         const b = `${Math.floor(rgb.b/16).toString(16)}${(rgb.b%16).toString(16)}`
+
         return r+g+b
     }
     
     function copyText() {
-        navigator.clipboard.writeText(`#${hexColor}`)
-        setToast("Copied to clipboard!")
+        navigator.clipboard.writeText(`${hexColor.toLocaleUpperCase}`)
+        setToast("Copied to clipboard!", "msg")
     }
  
     //STYLES
@@ -45,8 +46,17 @@ function ColorBanner({backgroundColor, isMobile, setToast}) {
     const hexColor = rgbToHex(backgroundColor)
 
     const copyIcon =(
-        dark ?  <FontAwesomeIcon icon={faCopy} size={isMobile ? "1x" : "2x"} style={iconStyle} onClick={copyText}/> :
-                <FontAwesomeIcon icon={faCopy} size={isMobile ? "1x" : "2x"} style={iconStyle} onClick={copyText} inverse/>
+        dark ?  <FontAwesomeIcon 
+                    icon={faCopy} 
+                    size={isMobile ? "1x" : "3x"} 
+                    style={iconStyle} 
+                    onClick={!isMobile ? copyText: null}/> :
+                <FontAwesomeIcon 
+                    icon={faCopy} 
+                    size={isMobile ? "1x" : "3x"} 
+                    style={iconStyle} 
+                    onClick={!isMobile ? copyText : null} 
+                    inverse/>
     )
 
     // RETURN 
@@ -57,9 +67,10 @@ function ColorBanner({backgroundColor, isMobile, setToast}) {
             style={style} 
             onMouseEnter={() => setHoverDetails(true)}
             onMouseLeave={() => setHoverDetails(false)}>
-                <div className="color-banner-details">
+                <div className="color-banner-details"
+                    onClick={isMobile ? copyText : null}>
                     <p className="hex-color" style={textStyle}>#{hexColor}</p>
-                {(hoverDetails || isMobile) && <div>{copyIcon}</div>}
+                    {(hoverDetails || isMobile) && <div>{copyIcon}</div>}
                 </div>
         </div>
 

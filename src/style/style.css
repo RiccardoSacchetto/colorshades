@@ -1,3 +1,14 @@
+/* ===== keyframes ===== */
+@keyframes scaleDown {
+  0%{
+    transform: scale(1);
+  }
+
+  100%{
+    transform: scale(0.9);
+  }
+}
+ 
 :root {
   --primaryColor: black;
   --secondaryColor: White;
@@ -24,7 +35,7 @@ html, body {
   
 }
 
-/* Typography */
+/* ===== Typography ===== */
 
 .header h1{
   letter-spacing: 2px;
@@ -42,13 +53,13 @@ html, body {
 .btn {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 3px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 700;
 }
 
 .btn-pro,
 .btn-standard {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
 .btn-random {
@@ -59,7 +70,7 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 
 .Toastify__toast { 
@@ -77,13 +88,13 @@ html, body {
   letter-spacing:1px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .header-standard h1 {
     font-size: 2.5rem;
   }
   
   .btn {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 
   .btn-pro {
@@ -97,6 +108,31 @@ html, body {
   .Toastify__toast { 
     font-size: 1.1rem;
   }
+
+  .form-color, 
+  .form-color input {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 950px) {
+  .header-standard h1 {
+    font-size: 2.75rem;
+  }
+  
+  .btn {
+    font-size: 0.85rem;
+  }
+
+  .btn-pro {
+    font-size: 0.62rem;
+  }
+
+  .hex-color {
+    font-size: 1.15rem;
+  }
+
+
 }
 
 /* ====== LAYOUT =====  */
@@ -105,32 +141,22 @@ html, body {
 .btn {
   padding: 0.75em 1.5em;
   border-radius: 10px;
-  border: 1px solid --thirdColor;
+  border: 2px solid var(--thirdColor);
   transform: scale(1);
   transition: all 200ms;
 }
 
 .btn:hover {
-  transform: scale(1.1);
+  opacity: 0.85;
+  border: 2px solid var(--primaryColor);
 }
 
 .btn:active {
-  transform: scale(0.9);
-  outline: none;
+  animation: scaleDown 100ms backwards;
 }
 
-.btn:focus{
-  outline: none;
-}
-
-/* .btn-random {
-  margin-bottom: 1rem;
-} */
-
-.header {
+.header-container{
   flex: 1;
-  height: 400px;
-  /* padding:1em 0 2.5em; */
   margin: 1.5rem 0 2rem;
 }
 
@@ -141,12 +167,9 @@ html, body {
   justify-content: space-between;
 }
 
-.header h1 {
-  margin: 0 0 0 0.75rem;
-}
 
 .header-standard h1 {
-  /* margin-bottom: 0.75em; */
+  margin-bottom: 0.8em;
   text-align: center;
 }
 
@@ -169,21 +192,6 @@ html, body {
   color: var(--primaryColor)
 } 
 
-@media (max-width: 600px) {
-  .header-standard .btn-header-container {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-  }
-  .btn-pro {
-    order: 0;
-    margin-bottom: 1rem;
-  }
-  .btn-random {
-    order: 1
-  }
-}
-
 .header-pro {
   display: grid;
   grid-template-areas: 
@@ -191,14 +199,15 @@ html, body {
     ". btn-standard rgb ."
     ". btn-random hex .";
   grid-template-columns: 1fr 3fr 6fr 1fr;
-  gap: 1rem;
+  gap: 0.85rem;
   justify-items: start;
   align-items: center;
 }
 
 .header-pro h1 {
   grid-area: title;
-  /* margin: 0 ; */
+  margin: 0 ;
+  text-align: center;
 }
 
 .btn-standard {
@@ -207,7 +216,7 @@ html, body {
 }
 
 .header-pro .btn-random {
-  grid-area: btn-random
+  grid-area: btn-random;
 }
 
 .form-color-rgb {
@@ -220,6 +229,11 @@ html, body {
 
 .form-color {
   margin: 0;
+  text-align: center;
+}
+
+.btn-input {
+  margin-left:  1.25rem;
 }
 
 .form-color input {
@@ -232,10 +246,50 @@ html, body {
 .form-color input:focus {
   border: 1px solid #454545
 }
+
+@media (max-width: 700px) {
+  .header-standard .btn-header-container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+
+  .btn-pro {
+    order: 0;
+    margin-bottom: 1rem;
+  }
+
+  .btn-random {
+    order: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-standard {
+    justify-self: center;
+  }
+
+  .header-pro {
+    grid-template-areas: 
+      ". title title ."
+    
+      ". btn-standard btn-standard ."
+      ". btn-random btn-random ."
+      ". rgb rgb ."
+      ". hex hex .";
+    grid-template-columns: 1fr 5fr 5fr 1fr;
+    gap: 0.65rem;
+    justify-items: center;
+    align-items: center;
+  }
+}
+
 /* Split and banner */
 
 .split-container {
   flex: 5;
+  height: 100%;
+  /* width: 100%; */
+  /* border: 1px solid aqua; */
 }
 
 .split {
@@ -252,14 +306,39 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 .color-banner-details {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 700px) {
+
+  .split {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .color-banner-details {
+    flex-direction: row;
+  }
+
+  .hex-color {
+    margin: 0;
+    height: 100%;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    margin-right: 1.5rem;
+  }
+
+}
+
 
 /* Toast */
 

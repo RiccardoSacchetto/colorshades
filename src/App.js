@@ -4,15 +4,28 @@ import ColorBanner from "./components/ColorBanner";
 import { ToastContainer, toast , Flip} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./style/style.css"
+import ColorHeader from "./components/ColorHeader";
 
 function App() {
 
   //CONST AND STATE
 
-  const isMobile = window.innerHeight > window.innerWidth
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 700)
   const numBanners = isMobile ? 5 : 7
-  const [colors, setColors] =React.useState(getShades)
-  const [proVersion, setProVersion] = React.useState(false)
+  const [colors, setColors] = React.useState(getShades)
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => {
+      if(window.innerWidth <700) {
+        console.log("passed")
+        window.location.reload()
+        // setIsMobile(true)
+      } else {
+        // setIsMobile(false) //TODO chiedere a Fra una mano
+      }
+
+    })
+  })
 
   //FUNCTIONS
 
@@ -24,9 +37,20 @@ function App() {
     }
   }
 
-  function getShades() {
+  function getShades(rgb = null) {
     const shadesArray = []
-    const randomColor = getRandomColor()
+    let randomColor;
+    if(rgb == null) {
+      randomColor = getRandomColor()
+    } else {
+      const tempRgb = rgb.split(",")
+      console.log(tempRgb)
+      randomColor = {
+        r: parseInt(tempRgb[0]),
+        g: parseInt(tempRgb[1]),
+        b: parseInt(tempRgb[2])
+      }
+    }
     const r = randomColor.r
     const g = randomColor.g
     const b = randomColor.b
@@ -52,24 +76,32 @@ function App() {
     return num
   }
 
-  function setToast(text) {
-    toast(text, {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined
-      });
-  }
-
-  function getShadesFromHEX() {
-
-  }
-
-  function getShadesFromRGB() {
-
+  function setToast(text, type) {
+    switch(type) {
+      case "msg":
+        toast(text, {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined
+        });
+      break;
+      case "err":
+        toast.warning(text, {
+          position: "bottom-center",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined
+        });
+      break;
+    }
+    
   }
 
   //STYLES
@@ -82,8 +114,8 @@ function App() {
 
   const colorText =  (
     ( colors[Math.floor(colors.length/2)].r+ 
-      colors[Math.floor(colors.length/2)].r+ 
-      colors[Math.floor(colors.length/2)].r)/3 > 128 ? "black" : "white"
+      colors[Math.floor(colors.length/2)].g+ 
+      colors[Math.floor(colors.length/2)].b)/3 > 178 ? "black" : "white"
   )
 
   const styleBtn = {
@@ -101,67 +133,26 @@ function App() {
               setToast= {setToast}/>
   })
 
-  const sizeSplit = colors.map(c => 100/numBanners)
-
   //RETURN
 
   return (
     <div className="app-container">
 
-      {proVersion ? 
-        <header className="header header-pro">
-          <h1>color shades pro</h1>
-          <button 
-            className="btn btn-standard" 
-            onClick={() => setProVersion(!proVersion)}>
-            GO BACK TO STANDARD
-          </button>
-          <button 
-            className="btn btn-random"
-            style={styleBtn}
-            onClick={() => setColors(getShades())}>
-              Get some random shades
-          </button>
-          <form onSubmit={getShadesFromRGB} class="form-color form-color-rgb">
-            <label>Get shades from RGB color: rgb(
-              <input type="text" name="rgbInput" placeholder="255,255,255"/>
-            )</label>
-            <button className="btn btn-input" type="submit" style={styleBtn}>get shades</button>
-          </form>
-          <form onSubmit={getShadesFromHEX} class="form-color form-color-hex">
-            <label>Get shades from HEX color: #
-              <input type="text" name="hexInput" placeholder="FF0000"/> 
-            </label>
-            <button className="btn btn-input" type="submit" style={styleBtn}>get shades</button>
-          </form>
-        </header> :
-
-        <header className="header header-standard">
-        <h1>color shades</h1>
-        <div className="btn-header-container">
-          <button 
-            className="btn btn-random"
-            style={styleBtn}
-            onClick={(e) => setColors(getShades())}>
-              Get some random shades
-          </button>
-          <button 
-            className="btn btn-pro" 
-            onClick={() => setProVersion(!proVersion)}>
-            GO PRO
-          </button>
-        </div>
-        </header>
-      }
+      <ColorHeader
+        styleBtn={styleBtn}
+        getShades={getShades}
+        setColors={setColors}
+        setToast={setToast}
+      />
 
       <div className="split-container">
         <Split
           className="split"
-          sizes={sizeSplit}
+          // minSize={140}
           gutterSize={6}
           snapOffset={0}
           dragInterval={1}
-          direction="horizontal">
+          direction={isMobile? "vertical" : "horizontal"}>
             {colorBannerElements}
         </Split>
       </div>

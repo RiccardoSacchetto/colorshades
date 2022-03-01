@@ -9,9 +9,7 @@ ReactDOM.render(
 
 /*TODO:
 
---style form and input and submit button > remove default focus i don't know how
---far funzionare la versione pro
 --provare a far funzionare il display flex in Split da telefono 
---mandare in testing
+--mandare in testing, chiedere una mano a fra x window.reload
 
 */
