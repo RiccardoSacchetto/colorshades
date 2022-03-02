@@ -5,27 +5,71 @@ import { ToastContainer, toast , Flip} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./style/style.css"
 import ColorHeader from "./components/ColorHeader";
+import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
 function App() {
 
   //CONST AND STATE
 
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 700)
-  const numBanners = isMobile ? 5 : 7
+  const [numBanners, setNumBanners] = React.useState(isMobile ? 5 : 7)
+  // const numBanners = isMobile ? 5 : 7
   const [colors, setColors] = React.useState(getShades)
 
-  React.useEffect(() => {
-    window.addEventListener("resize", () => {
-      if(window.innerWidth <700) {
-        console.log("passed")
-        window.location.reload()
-        // setIsMobile(true)
-      } else {
-        // setIsMobile(false) //TODO chiedere a Fra una mano
-      }
+  // React.useEffect(() => {
+  //   window.addEventListener("resize", () => {
+  //     if(window.innerWidth <700 && !isMobile) {
+  //       console.log("passed")
+  //       console.log(colors[0])
+  //       // window.location.reload()
+  //       setIsMobile(window.innerWidth < 700)
+  //       setNumBanners(5)
+  //       console.log(isMobile)
+  //       setColors(getShades(`${colors[0].r},${colors[0].g},${colors[0].b}`))
+  //     } else {
+  //       // setIsMobile(false) //TODO chiedere a Fra una mano
+  //     }
 
-    })
+  //   })
+  // })
+
+
+  React.useEffect(() => {
+    const debouncedHandleResize = () => {
+
+      if(window.innerWidth < 700 && !isMobile) {
+        setNumBanners(5)  
+        setIsMobile(true) // this has to be the last one so it activates the useeffect
+      } else if(window.innerWidth > 700 && isMobile) {
+
+      }
+    }
+
+    window.addEventListener('resize', debouncedHandleResize)
+
+    return _ => {
+      window.removeEventListener('resize', debouncedHandleResize)
+    
+    }
   })
+
+  //Rerendering of everything that nedds it after ismobile is changed
+  React.useEffect(() => {
+    if(isMobile) {
+      call()
+      setColors(prevColors => {
+        const cutColors = prevColors.slice(0, 5)
+        return cutColors
+      })
+
+    }
+  },[isMobile])
+
+  function call() {
+    console.log("call")
+    console.log(isMobile)
+    console.log(numBanners)
+  }
 
   //FUNCTIONS
 
@@ -44,7 +88,7 @@ function App() {
       randomColor = getRandomColor()
     } else {
       const tempRgb = rgb.split(",")
-      console.log(tempRgb)
+      // console.log(tempRgb)
       randomColor = {
         r: parseInt(tempRgb[0]),
         g: parseInt(tempRgb[1]),
@@ -104,6 +148,17 @@ function App() {
     
   }
 
+  // function getColorBannerElements() {
+  //   return colors.map((c,index) => {
+  //     console.log("render banner")
+  //     return <ColorBanner 
+  //               key={index} 
+  //               backgroundColor={c} 
+  //               isMobile={isMobile}
+  //               setToast= {setToast}/>
+  //   })
+  // }
+
   //STYLES
 
   const rgbColorMiddle = (
@@ -126,18 +181,39 @@ function App() {
   //ELEMENTS AND DATA
 
   const colorBannerElements = colors.map((c,index) => {
-    return <ColorBanner 
-              key={index} 
-              backgroundColor={c} 
-              isMobile={isMobile}
-              setToast= {setToast}/>
+        console.log("render banner")
+        return <ColorBanner 
+                  key={index} 
+                  backgroundColor={c} 
+                  isMobile={isMobile}
+                  setToast= {setToast}/>
   })
+  
+  const splitContainer = getSplit()
+  
+  
+  function getSplit() {
+    console.log("splitter render")
+    console.log(isMobile)
+    return (
+      <Split
+        className="split"
+        // minSize={140}
+        gutterSize={6}
+        snapOffset={0}
+        dragInterval={1}
+        direction={isMobile? "vertical" : "horizontal"}>
+          {colorBannerElements}
+      </Split>
+    )
+  }
+   
 
   //RETURN
 
   return (
     <div className="app-container">
-
+      <p>{isMobile? "true" : "false"}</p>
       <ColorHeader
         styleBtn={styleBtn}
         getShades={getShades}
@@ -146,15 +222,7 @@ function App() {
       />
 
       <div className="split-container">
-        <Split
-          className="split"
-          // minSize={140}
-          gutterSize={6}
-          snapOffset={0}
-          dragInterval={1}
-          direction={isMobile? "vertical" : "horizontal"}>
-            {colorBannerElements}
-        </Split>
+        {splitContainer}
       </div>
       <ToastContainer
         transition={Flip}
