@@ -24,7 +24,6 @@ function ColorHeader({styleBtn, getShades, setColors, setToast}) {
           setToast("Hex color not valid", "err")
         }
     }
-    
 
     function getShadesFromRGB(event) {
         event.preventDefault()
