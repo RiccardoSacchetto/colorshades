@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
 
 function ColorBanner({ backgroundColor, isMobile, setToast }) {
+  
   //CONST AND STATE
 
   const [hoverDetails, setHoverDetails] = React.useState(false)
@@ -33,7 +34,12 @@ function ColorBanner({ backgroundColor, isMobile, setToast }) {
 
   //STYLES
 
+  const bannerWidth = isMobile ? 100 : 100 / 7
+  const bannerHeight = isMobile ? 100 / 5 : 100
+
   const style = {
+    width: `${bannerWidth}%`,
+    height: `${bannerHeight}%`,
     backgroundColor: color,
   }
   const textStyle = {

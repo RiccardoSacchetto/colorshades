@@ -1,11 +1,9 @@
 import React from "react";
-import Split from "react-split"
 import ColorBanner from "./components/ColorBanner";
 import { ToastContainer, toast , Flip} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./style/style.css"
 import ColorHeader from "./components/ColorHeader";
-import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
 function App() {
 
@@ -13,63 +11,38 @@ function App() {
 
   const [isMobile, setIsMobile] = React.useState(window.innerWidth < 700)
   const [numBanners, setNumBanners] = React.useState(isMobile ? 5 : 7)
-  // const numBanners = isMobile ? 5 : 7
   const [colors, setColors] = React.useState(getShades)
 
-  // React.useEffect(() => {
-  //   window.addEventListener("resize", () => {
-  //     if(window.innerWidth <700 && !isMobile) {
-  //       console.log("passed")
-  //       console.log(colors[0])
-  //       // window.location.reload()
-  //       setIsMobile(window.innerWidth < 700)
-  //       setNumBanners(5)
-  //       console.log(isMobile)
-  //       setColors(getShades(`${colors[0].r},${colors[0].g},${colors[0].b}`))
-  //     } else {
-  //       // setIsMobile(false) //TODO chiedere a Fra una mano
-  //     }
-
-  //   })
-  // })
-
-
   React.useEffect(() => {
-    const debouncedHandleResize = () => {
+    const handleResizeEvent = () => {
 
       if(window.innerWidth < 700 && !isMobile) {
         setNumBanners(5)  
         setIsMobile(true) // this has to be the last one so it activates the useeffect
       } else if(window.innerWidth > 700 && isMobile) {
-
+        setNumBanners(7)  
+        setIsMobile(false)
       }
     }
 
-    window.addEventListener('resize', debouncedHandleResize)
+    window.addEventListener('resize', handleResizeEvent)
 
     return _ => {
-      window.removeEventListener('resize', debouncedHandleResize)
-    
+      window.removeEventListener('resize', handleResizeEvent)
     }
   })
 
-  //Rerendering of everything that nedds it after ismobile is changed
-  React.useEffect(() => {
-    if(isMobile) {
-      call()
+  React.useEffect(() => { //Rerendering of everything that needs it after ismobile is changed
+    if(isMobile && colors.length == 7) {
       setColors(prevColors => {
         const cutColors = prevColors.slice(0, 5)
         return cutColors
       })
-
+    } else if(!isMobile && colors.length == 5) {
+      setColors(getShades(`${colors[0].r},${colors[0].g},${colors[0].b}`))
     }
-  },[isMobile])
 
-  function call() {
-    console.log("call")
-    console.log(isMobile)
-    console.log(numBanners)
-  }
+  },[isMobile])
 
   //FUNCTIONS
 
@@ -88,7 +61,6 @@ function App() {
       randomColor = getRandomColor()
     } else {
       const tempRgb = rgb.split(",")
-      // console.log(tempRgb)
       randomColor = {
         r: parseInt(tempRgb[0]),
         g: parseInt(tempRgb[1]),
@@ -131,8 +103,8 @@ function App() {
           pauseOnHover: true,
           draggable: false,
           progress: undefined
-        });
-      break;
+        })
+      break
       case "err":
         toast.warning(text, {
           position: "bottom-center",
@@ -142,22 +114,11 @@ function App() {
           pauseOnHover: true,
           draggable: false,
           progress: undefined
-        });
-      break;
+        })
+      break
     }
     
   }
-
-  // function getColorBannerElements() {
-  //   return colors.map((c,index) => {
-  //     console.log("render banner")
-  //     return <ColorBanner 
-  //               key={index} 
-  //               backgroundColor={c} 
-  //               isMobile={isMobile}
-  //               setToast= {setToast}/>
-  //   })
-  // }
 
   //STYLES
 
@@ -181,49 +142,27 @@ function App() {
   //ELEMENTS AND DATA
 
   const colorBannerElements = colors.map((c,index) => {
-        console.log("render banner")
         return <ColorBanner 
                   key={index} 
                   backgroundColor={c} 
                   isMobile={isMobile}
                   setToast= {setToast}/>
-  })
-  
-  const splitContainer = getSplit()
-  
-  
-  function getSplit() {
-    console.log("splitter render")
-    console.log(isMobile)
-    return (
-      <Split
-        className="split"
-        // minSize={140}
-        gutterSize={6}
-        snapOffset={0}
-        dragInterval={1}
-        direction={isMobile? "vertical" : "horizontal"}>
-          {colorBannerElements}
-      </Split>
-    )
-  }
-   
+  })   
 
   //RETURN
 
   return (
     <div className="app-container">
-      <p>{isMobile? "true" : "false"}</p>
       <ColorHeader
         styleBtn={styleBtn}
         getShades={getShades}
         setColors={setColors}
         setToast={setToast}
       />
-
-      <div className="split-container">
-        {splitContainer}
+      <div className="banners-container">
+        {colorBannerElements}
       </div>
+
       <ToastContainer
         transition={Flip}
         position="bottom-center"
@@ -236,7 +175,7 @@ function App() {
         draggable={false}
         pauseOnHover/>
     </div>
-  );
+  )
 }
 
 export default App;
