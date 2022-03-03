@@ -4,6 +4,7 @@ import { ToastContainer, toast , Flip} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./style/style.css"
 import ColorHeader from "./components/ColorHeader";
+import Split from "react-split";
 
 function App() {
 
@@ -158,9 +159,22 @@ function App() {
         setColors={setColors}
         setToast={setToast}
       />
-      <div className="banners-container">
-        {colorBannerElements}
-      </div>
+
+      {isMobile ?
+        <div className="banners-container">
+          {colorBannerElements}
+        </div>
+      :
+        <Split
+          className="split"
+          minSize={140}
+          gutterSize={6}
+          snapOffset={0}
+          dragInterval={1}
+          direction="horizontal">
+            {colorBannerElements}
+        </Split>
+      }
 
       <ToastContainer
         transition={Flip}
