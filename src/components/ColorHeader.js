@@ -43,7 +43,7 @@ function ColorHeader({styleBtn, getShades, setColors, setToast}) {
   function checkRgbString(rgb) {
       if(rgb.length > 11 || rgb.length < 5) return false 
       const arrayRgb = rgb.replace(".", ",").split(",")
-      if(arrayRgb.length != 3) return false
+      if(arrayRgb.length !== 3) return false
       arrayRgb.forEach(col => {
           if(col < 0 || col >255) return false
       })
@@ -68,13 +68,13 @@ function ColorHeader({styleBtn, getShades, setColors, setToast}) {
                 <button 
                   className="btn btn-standard" 
                   onClick={() => setProVersion(!proVersion)}>
-                  BACK TO STANDARD
+                    standard mode
                 </button>
                 <button 
                   className="btn btn-random"
                   style={styleBtn}
                   onClick={() => setColors(getShades())}>
-                    Get some random shades
+                    generate new shades
                 </button>
                 <form 
                   onSubmit={getShadesFromRGB} 
@@ -122,12 +122,12 @@ function ColorHeader({styleBtn, getShades, setColors, setToast}) {
                   className="btn btn-random"
                   style={styleBtn}
                   onClick={(e) => setColors(getShades())}>
-                    Get some random shades
+                    generate new shades
                 </button>
                 <button 
                   className="btn btn-pro" 
                   onClick={() => setProVersion(!proVersion)}>
-                  GO PRO
+                  advanced mode
                 </button>
               </div>
               </header>

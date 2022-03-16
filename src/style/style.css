@@ -25,6 +25,7 @@ html, body {
   height: 100%;
   width: 100vw;
   font-family: 'Montserrat', sans-serif;
+  overflow-x:hidden;
 }
 
 .app-container {
@@ -39,6 +40,7 @@ html, body {
 .header h1{
   letter-spacing: 2px;
   text-transform: lowercase;
+  margin: 0;
 }
 
 .header-standard h1 {
@@ -52,17 +54,14 @@ html, body {
 .btn {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 3px;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .btn-pro,
 .btn-standard {
-  font-size: 0.7rem;
-}
-
-.btn-random {
-  text-transform: uppercase;
+  font-size: 0.75rem;
 }
 
 .hex-color {
@@ -96,7 +95,8 @@ html, body {
     font-size: 0.75rem;
   }
 
-  .btn-pro {
+  .btn-pro,
+  .btn-standard {
     font-size: 0.65rem;
   }
 
@@ -120,11 +120,12 @@ html, body {
   }
   
   .btn {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
-  .btn-pro {
-    font-size: 0.62rem;
+  .btn-pro,
+  .btn-standard {
+    font-size: 0.7rem;
   }
 
   .hex-color {
@@ -153,8 +154,11 @@ html, body {
 }
 
 .header-container{
-  flex: 1;
-  margin: 1.5rem 0 2rem;
+  flex: 3;
+  padding: 0.5rem 0.5rem 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-standard {
@@ -175,10 +179,12 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 500ms;
 }
 
-.btn-random, .btn-pro {
+.btn-random, .btn-pro, .btn-standard, .header.header-pro h1 {
   margin: 0 0.5rem;
+  /* transition: all 250ms ease; */
 }
 
 .btn-pro, .btn-standard {
@@ -193,15 +199,18 @@ html, body {
 } 
 
 .header-pro {
+  /* margin: 1rem; */
   display: grid;
   grid-template-areas: 
-    ". title title ."
-    ". btn-standard rgb ."
-    ". btn-random hex .";
-  grid-template-columns: 1fr 3fr 6fr 1fr;
+    "title title"
+    "btn-standard rgb"
+    "btn-random hex";
+  grid-template-columns: 1fr 2fr;
   gap: 0.85rem;
   justify-items: start;
   align-items: center;
+  transition-property: left;
+  transition-duration: 1000ms;
 }
 
 .header-pro h1 {
@@ -228,6 +237,9 @@ html, body {
 .form-color {
   margin: 0;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-input {
@@ -251,9 +263,13 @@ html, body {
   }
 
   .header-standard .btn-header-container {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     width: auto;
+  }
+
+  .form-color {
+    flex-direction: column;
   }
 
   .btn-pro {
@@ -273,7 +289,6 @@ html, body {
   .header-pro {
     grid-template-areas: 
       ". title title ."
-    
       ". btn-standard btn-standard ."
       ". btn-random btn-random ."
       ". rgb rgb ."
@@ -287,8 +302,19 @@ html, body {
 
 /* Banners */
 
+.split {
+  flex: 10;
+  display: flex;
+  height: 100%;
+}
+
+.gutter { /* class inside of Split component */
+  background-color: var(--thirdColor);
+  cursor: col-resize;
+}
+
 .banners-container {
-  flex: 5;
+  flex: 10;
   display: flex;
   height: 100%;
   flex-direction: row;
@@ -311,7 +337,7 @@ html, body {
 
 @media (max-width: 700px) {
 
-  .split-container {
+  .banners-container {
     flex-direction: column;
   }
 

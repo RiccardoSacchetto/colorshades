@@ -34,16 +34,17 @@ function App() {
   })
 
   React.useEffect(() => { //Rerendering of everything that needs it after ismobile is changed
-    if(isMobile && colors.length == 7) {
+    if(isMobile && colors.length === 7) {
       setColors(prevColors => {
         const cutColors = prevColors.slice(0, 5)
         return cutColors
       })
-    } else if(!isMobile && colors.length == 5) {
-      setColors(getShades(`${colors[0].r},${colors[0].g},${colors[0].b}`))
-    }
+    } /* else if(!isMobile && colors.length == 5) {
+      // setColors(getShades(`${colors[0].r},${colors[0].g},${colors[0].b}`))
+      // splitContainer = getSplitContainer();
+    } */
 
-  },[isMobile])
+  },[isMobile, colors.length])
 
   //FUNCTIONS
 
@@ -94,9 +95,9 @@ function App() {
   }
 
   function setToast(text, type) {
-    switch(type) {
-      case "msg":
+    if(type === "msg") {
         toast(text, {
+          closeButton: false,
           position: "bottom-center",
           autoClose: 1000,
           hideProgressBar: true,
@@ -105,18 +106,17 @@ function App() {
           draggable: false,
           progress: undefined
         })
-      break
-      case "err":
-        toast.warning(text, {
-          position: "bottom-center",
-          autoClose: 1000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined
-        })
-      break
+    } else if(type === "err") {
+      toast.warning(text, {
+        closeButton: false,
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined
+      })
     }
   }
 
@@ -131,7 +131,7 @@ function App() {
   const colorText =  (
     ( colors[Math.floor(colors.length/2)].r+ 
       colors[Math.floor(colors.length/2)].g+ 
-      colors[Math.floor(colors.length/2)].b)/3 > 178 ? "black" : "white"
+      colors[Math.floor(colors.length/2)].b)/3 > 164 ? "black" : "white"
   )
 
   const styleBtn = {
@@ -142,11 +142,11 @@ function App() {
   //ELEMENTS AND DATA
 
   const colorBannerElements = colors.map((c,index) => {
-        return <ColorBanner 
-                  key={index} 
-                  backgroundColor={c} 
-                  isMobile={isMobile}
-                  setToast= {setToast}/>
+    return <ColorBanner 
+              key={index} 
+              backgroundColor={c} 
+              isMobile={isMobile}
+              setToast= {setToast}/>
   })   
 
   //RETURN
@@ -160,20 +160,22 @@ function App() {
         setToast={setToast}
       />
 
+      {/* {splitContainer} */}
+
       {isMobile ?
         <div className="banners-container">
           {colorBannerElements}
         </div>
       :
-        <Split
-          className="split"
-          minSize={140}
-          gutterSize={6}
-          snapOffset={0}
-          dragInterval={1}
-          direction="horizontal">
-            {colorBannerElements}
-        </Split>
+          <Split
+            className="split"
+            minSize={140}
+            gutterSize={6}
+            snapOffset={0}
+            dragInterval={1}
+            direction="horizontal">
+              {colorBannerElements}
+          </Split>
       }
 
       <ToastContainer

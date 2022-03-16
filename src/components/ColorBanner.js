@@ -9,7 +9,7 @@ function ColorBanner({ backgroundColor, isMobile, setToast }) {
   const [hoverDetails, setHoverDetails] = React.useState(false)
   const color = `rgb(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b})`
   const dark =
-    (backgroundColor.r + backgroundColor.g + backgroundColor.b) / 3 > 178
+    (backgroundColor.r + backgroundColor.g + backgroundColor.b) / 3 > 164
 
   //FUNCTIONS
 
