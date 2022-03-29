@@ -1,9 +1,14 @@
-# Color shades
+# color shades
 
 ## Table of contents
+* [Deploy](#deploy)
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Deploy](#deploy)
+
+## Deploy
+You can see this website and how it works, it's published using netlify at this link:
+
+https://getcolorshades.netlify.app/
 
 ## General info
 This project is a color shade generator, there is two different mode:
@@ -17,8 +22,3 @@ The website is fully responsive with a few variations on the number and format o
 This project is created with:
 * React version: 17.0
 * CSS3
-	
-## Deploy
-You can see this website and how it works, it's published using netlify at this link:
-
-https://getcolorshades.netlify.app/
