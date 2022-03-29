@@ -1,4 +1,4 @@
-# color shades
+# Color shades
 
 ## Table of contents
 * [Deploy](#deploy)
