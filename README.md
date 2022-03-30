@@ -8,7 +8,7 @@
 ## Deploy
 You can see this website and how it works, it's published using netlify at this link:
 
-https://getcolorshades.netlify.app/
+https://rs-colorshades.netlify.app/
 
 ## General info
 This project is a color shade generator, there is two different mode:
